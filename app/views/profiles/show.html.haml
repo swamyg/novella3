@@ -1,0 +1,34 @@
+%div{:class=>"yui-u first"}
+  =render :partial => 'profile_left.html.haml'
+%div{:class=>"yui-u"}
+  .heading.large
+    %a{:href=>profile_path(@user.login),:class=>'none'}
+      =h @user.login + "'s page"
+  .break
+  .box
+    .title.medium
+      profile
+      -if @user.id == current_user.id
+        .right
+          =link_to 'edit', edit_user_profile_path(@user), :class=>'none'
+           
+    %table{:cellspacing=>5,:class=>'info'}
+      %tr
+        %td{:width=>"33%"} novels written
+        %td{:width=>"66%"}
+          =link_to @user.novels.count, user_novels_path(@user.id), :class=>'normal'
+      %tr
+        %td chapters conrtibuted
+        %td
+          =link_to @user.chapters.count, user_chapters_path(@user.id), :class=>'normal'
+      -unless @profile.about_me.blank?
+        %tr
+          %td about me
+          %td
+            =h @profile.about_me
+      -unless @profile.webpage.blank?
+        %tr
+          %td webpage
+          %td
+            =link_to @profile.webpage, @profile.webpage, :class=>'normal'
+  .break

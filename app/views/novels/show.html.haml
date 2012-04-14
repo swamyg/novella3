@@ -1,0 +1,17 @@
+%div{:class=>"yui-u first"}
+  =render :partial => 'novel_chapter_left.html.haml'
+%div{:class=>"yui-u"}
+  .heading.large
+    %a{:href=>perma_link_path(@novel.perma_link),:class=>'none'}
+      =h @novel.name    
+      %br
+      %br
+
+  -if @chapter_count > 0
+    .break
+    .big Chapters
+    .break
+    .move-left
+      -@chapters.each_with_index do |chapter,idx|
+        .medium
+          =link_to chapter.number.to_s+". "+chapter.title, chapter_no_path(@novel.id,chapter.number), :class=>'normal tall'

@@ -1,0 +1,33 @@
+!!! strict
+%html
+  %head
+    %title Novella : Collaborate, Share, Enjoy!
+    %link{:rel=>"stylesheet", :href=>"/stylesheets/reset-fonts-grids.css", :type=>"text/css"}
+    %link{:rel=>"stylesheet", :href=>"/stylesheets/application.css", :media=>"screen", :type=>"text/css"}
+    %link{:rel=>"stylesheet", :href=>"/stylesheets/jui-smoothness/jquery-ui-1.7.2.custom.css", :media=>"screen", :type=>"text/css"}
+    = javascript_include_tag 'jquery-1.3.2.min'
+    = javascript_include_tag 'jquery-ui-1.7.2.custom.min'
+    :javascript
+      var J = jQuery.noConflict();
+  %body
+    %div{:id=>"doc4", :class=>"yui-t7"}
+      %div{:id=>"hd", :role=>"banner",:class=>"banner"}
+        %div{:class=>"yui-gf"}
+          %div{:class=>"yui-u first"}
+            %a{:href=>'/',:class=>'no-bg'}
+              %img{:src=>'/images/logo_main.png'}
+          %div{:class=>"yui-u"}        
+            = render :partial => "layouts/loginbox.html.haml"
+        %center
+          %div{:class=>"menu"}
+            =render :partial=>"layouts/genre_menu.html.haml"              
+      %div{:id=>"bd",:role=>"main", :class=>'content'}
+        %div{:class=>"yui-gd"}
+          = flash_div :warning, :notice, :success, :error
+          =yield
+      %div{:id=>"ft", :role=>"contentinfo", :class=>'footer light-gray'}
+        .break
+        %hr
+        .break
+        %p &#169; Novella Inc Ltd LLP
+	      

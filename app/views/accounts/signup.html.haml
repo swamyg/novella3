@@ -1,0 +1,29 @@
+- if !(error_messages_for :user).blank?
+  %div{:class=>"flash error"}= error_messages_for :user
+= rounded_start
+%div{:class=>'contentb'}
+  %div
+    - form_for :user do |f|
+      %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2'}
+        %tr
+          %td
+            = f.label :login, 'login'
+          %td
+            = f.text_field :login, :size => 16
+        %tr
+          %td
+            = f.label :email, 'email'
+          %td
+            = f.text_field :email, :size => 32
+        %tr
+          %td
+            = f.label :password, 'password'
+          %td
+            = f.password_field :password, :size => 16
+        %tr
+          %td
+            = f.label :password_confirmation, 'confirm'
+          %td
+            = f.password_field :password_confirmation, :size => 16
+      = submit_tag 'Submit'
+= rounded_stop

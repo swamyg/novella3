@@ -1,0 +1,182 @@
+html{
+	font:11px Arial, Helvetica, sans-serif; /* Sets the font size and type for the whole html page */
+	color:#333;} /* Sets the font color for the whole html page */
+/* Horizontan menu (genres) */	
+.menu{
+	width: 100%; /* The menu should be the entire width of it's surrounding object, in this case the whole page */
+	background-color: #333;} /* dark grey bg */
+
+.menu ul{
+	padding: 0;
+  width: 35.2em;}
+
+.menu ul li{
+	display: inline;} /* Makes the link all appear in one line, rather than on top of each other */
+
+.menu ul li a{
+	float: left; 
+	text-decoration: none; /* removes the underline from the menu text */
+	color: #fff; /* text color of the menu */
+	padding: 10.5px 11px; /* 10.5px of padding to the right and left of the link and 11px to the top and bottom */
+	background-color: #333;}
+
+.menu ul li a:visited{ /* This bit just makes sure the text color doesn't change once you've visited a link */
+	color: #fff;
+	text-decoration: none;}
+
+.menu ul li a:hover, .menu ul li .current{
+	color: #fff;
+	background-color:#0b75b2;} /* change the background color of the list item when you hover over it */
+
+.banner {  height: 10%; }
+.content { height: 80%; margin:2em;}
+.footer { height: 10%; }
+
+/* begin css tabs */
+
+ul#tabnav { /* general settings */
+text-align: left; /* set to left, right or center */
+margin: 1em 0 1em 0; /* set margins as desired */
+font: bold 11px verdana, arial, sans-serif; /* set font as desired */
+border-bottom: 1px solid #6c6; /* set border COLOR as desired */
+list-style-type: none;
+padding: 3px 10px 3px 10px; /* THIRD number must change with respect to padding-top (X) below */
+}
+
+ul#tabnav li { /* do not change */
+display: inline;
+}
+
+.current{ /* settings for selected tab */
+border-bottom: 1px solid #fff; /* set border color to page background color */
+background-color: #fff; /* set background color to match above border color */
+}
+
+ul#tabnav li.current a { /* settings for selected tab link */
+background-color: #fff; /* set selected tab background color as desired */
+color: #000; /* set selected tab link color as desired */
+position: relative;
+top: 1px;
+padding-top: 4px; /* must change with respect to padding (X) above and below */
+}
+
+ul#tabnav li a { /* settings for all tab links */
+padding: 3px 4px; /* set padding (tab size) as desired; FIRST number must change with respect to padding-top (X) above */
+border: 1px solid #6c6; /* set border COLOR as desired; usually matches border color specified in #tabnav */
+background-color: #cfc; /* set unselected tab background color as desired */
+color: #666; /* set unselected tab link color as desired */
+margin-right: 0px; /* set additional spacing between tabs as desired */
+text-decoration: none;
+border-bottom: none;
+}
+
+ul#tabnav a:hover { /* settings for hover effect */
+background: #fff; /* set desired hover color */
+}
+
+/* end css tabs */
+
+/* User panel menu */
+#navcontainer
+{
+font-family: Arial,Sans-Serif;
+margin: 0 auto;
+width: 70%;
+}
+
+#navlist
+{
+width: 90%;
+text-align: center;
+margin: 0 auto;
+padding: 0;
+text-indent: 0;
+list-style-type: none;
+}
+
+#navlist li
+{
+padding: 0;
+margin: 0;
+text-indent: 0;
+display: inline;
+}
+
+#navlist li a
+{
+letter-spacing: -1px;
+text-decoration: none;
+color: #ccc;
+font-size: 1.7em;
+padding: 0 2px;
+}
+
+#navlist li a:hover
+{
+color: #932;
+}
+
+#navlist a.current { color: #932; }
+/*Rounded corners */
+.b1, .b2, .b3, .b4{font-size:1px; overflow:hidden; display:block;}
+.b1 {height:1px; background:#C2DDF6; margin:0 5px;}
+.b2 {height:1px; background:#DCE5FF; border-right:2px solid #C2DDF6; border-left:2px solid #C2DDF6; margin:0 3px;}
+.b3 {height:1px; background:#DCE5FF; border-right:1px solid #C2DDF6; border-left:1px solid #C2DDF6; margin:0 2px;}
+.b4 {height:2px; background:#DCE5FF; border-right:1px solid #C2DDF6; border-left:1px solid #C2DDF6; margin:0 1px;}
+.contentb {background: #DCE5FF; border-right:1px solid #C2DDF6; border-left:1px solid #C2DDF6;}
+.contentb div {margin-left: 5px;}
+/* box and title bar */
+.box {background:#EEE;padding:0.5em}
+.box .title{background:#BBB;text-align:center;height:10%;}
+/*styling for forms using table */
+.form {margin:1em;padding:2em;}
+.general {margin:0.5em;width:100%;}
+.info {margin:1em 0em;width:100%;}
+.info td{padding:0.2em 0.05em;}
+.info tr{padding:0.2em 0.05em}
+/*Flash notices */
+.flash {	margin:1.5em;
+	padding:0.666em;
+	text-align:center;
+}
+.flash.error{ background:#fee; border:1px solid red;}
+.flash.notice{ background:#eef; border:1px solid #00f;}
+.flash.success{ background:#efe; border:1px solid #0f0;}
+.flash.warning{ background:#ffe; border:1px solid #ff0;}
+
+/*positions*/
+.right {float:right;}
+.left {float:left;}
+.move-left{margin:0 0 0 2em}
+.move-right{margin:0 2 0 0em}
+/*others*/
+.hidden {display:none;}
+div.hr{
+color: #aaa!important;
+background-color: #f00!important;
+}
+.tall {line-height:1.5em;}
+/* links*/
+a.normal, .pagination a{text-decoration:none;color:#77A3FC;}
+a.normal:hover, .pagination a:hover {text-decoration:underline;}
+
+a.none {text-decoration:none;color:inherit}
+a.none:hover {text-decoration:none;color:inherit}
+/* font styles */
+.heading {color:#666}
+.text-gray{color:#444;}
+.gray{color:#999;}
+.light-gray{color:#aaa;}
+.bold{font-weight:900;}
+.italic {font-family:verdana;font-style: italic;}
+.justify {text-align:justify;}
+/* size */
+.humongous {font-size:3em}
+.large {font-size:2.75em}
+.big {font-size:2.0em}
+.medium {font-size:1.15em}
+
+
+/* others */
+.break {clear:both;margin:1em 0em;}
+.half-size{width:50%;}

@@ -1,0 +1,6 @@
+%ul
+  %li
+    %a{:href=>"/all", :class=>"#{'current' if !@genre.nil? and @genre.name=='all'}"}all
+  - menu_items.each do |menu|
+    %li
+      %a{:href=>"/#{menu.url}", :class=>"#{'current' if !@genre.nil? and @genre.name==menu.name}"}= menu.name

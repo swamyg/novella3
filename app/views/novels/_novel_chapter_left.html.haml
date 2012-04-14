@@ -1,0 +1,59 @@
+=image_tag @novel.photo.url(:small)   
+%br
+=print_quotes(1)
+%span{:class=>"italic justify", :align=>"justify"}
+  =h @novel.description
+=print_quotes(0)
+.break
+=rounded_start
+%div{:class=>'contentb'}
+  %table{:class=>'general'}
+    %tr
+      %td= link_to "Add Chapter", new_novel_chapter_path(@novel), :class=>'normal'
+      %td
+        -if current_user.id==@novel.user.id
+          =link_to "Edit Novel", edit_novel_path(@novel), :class=>'normal'
+        -else
+          ="Edit Novel"      
+    %tr
+      %td Comments
+      %td Something
+=rounded_stop
+-if !@chapter.nil?
+  .break
+    .box
+      .title.medium
+        This Chapter
+      %table{:cellspacing=>5,:class=>'info'}
+        %tr
+          %td{:width=>"33%"} by
+          %td{:width=>"66%"}
+            %a{:href=>"/users/#{@chapter.user.login}", :class=>'normal'}= @chapter.user.login        
+        %tr
+          %td created on
+          %td= @novel.created_at.strftime("%M/%d/%y")
+        %tr
+          %td last updated
+          %td= @novel.updated_at.strftime("%M/%d/%y")
+.break
+.box
+  .title.medium
+    This Novel
+  %table{:cellspacing=>5,:class=>'info'}
+    %tr
+      %td{:width=>"33%"} by
+      %td{:width=>"66%"}
+        %a{:href=>"/users/#{@novel.user.login}", :class=>'normal'}= @novel.user.login
+    %tr
+      %td genre
+      %td
+        %a{:href=>"/#{@novel.genre.name}", :class=>'normal'}= @novel.genre.name
+    %tr
+      %td= @chapter_count
+      %td  chapters
+    %tr
+      %td created on
+      %td= @novel.created_at.strftime("%M/%d/%y")
+    %tr
+      %td last updated
+      %td= @novel.updated_at.strftime("%M/%d/%y")

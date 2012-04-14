@@ -1,0 +1,19 @@
+%div{:class=>"yui-u first"}
+  =render :partial => 'profiles/profile_left.html.haml'
+%div{:class=>"yui-u"}
+  .heading.large
+    %a{:href=>profile_path(@user.login),:class=>'none'}
+      =h @user.login + "'s contribution"
+  .break
+  -unless @user_chapters_novels.nil?
+    -@user_chapters_novels.each_with_index do |novel,idx|
+      -idx+=1
+      .big
+        =link_to idx.to_s+". "+novel.name, perma_link_path(novel.perma_link), :class=>'none' 
+      -@user_chapters_contribution =  @user.chapters.find(:all,:conditions=>['novel_id=?',novel.id])
+      .move-left.medium
+        -@user_chapters_contribution.each do |chapter|
+          =link_to chapter.number.to_s+". "+chapter.title, chapter_no_path(novel.id,chapter.number), :class=>'normal tall'
+          %br        
+      .break
+  .break

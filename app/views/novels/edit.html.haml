@@ -1,0 +1,31 @@
+- if !(error_messages_for :novel).blank?
+  %div{:class=>"flash error"}= error_messages_for :novel
+%h1 Editing novel
+= rounded_start
+%div{:class=>'contentb'}
+  -form_for @novel, :url=>{:action=>'update'}, :html => { :multipart => true } do |f|
+    %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2'}
+      %tr
+        %td
+          = f.label :name, 'name'
+          %br
+          = f.text_field :name, :size => 32
+      %tr
+        %td
+          = f.label :description, 'description'
+          %br
+          = f.text_area :description, :cols =>30, :rows=>5
+      %tr
+        %td
+          - menu_items.each do |genre|
+            = f.radio_button :genre_id,genre.id
+            = genre.name
+            %br
+      %tr
+        %td
+          = f.file_field :photo
+          %br
+      %tr
+        %td
+          =f.submit 'Update'
+= rounded_stop

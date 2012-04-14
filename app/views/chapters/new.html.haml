@@ -1,0 +1,32 @@
+- if !(error_messages_for :chapter).blank?
+  %div{:class=>"flash error"}= error_messages_for :chapter
+%div{:class=>"yui-u first"}
+%div{:class=>"yui-u"}  
+  .big Add New Chapter
+  .break
+  =rounded_start
+  %div{:class=>'contentb'}    -form_for @chapter,@novel, :url=>{:action=>'create'} do |f|  
+      %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2', :width=>'100%'}
+        %tr
+          %td
+            = f.label :novel_name, 'Novel'
+          %td
+            = @novel.name
+        %tr
+          %td
+            = f.label :number, 'Chapter Number'
+          %td
+            = @chapter_count + 1
+        %tr
+          %td
+            = f.label :title, 'title'
+          %td
+            = f.text_field :title, :size => 32
+        %tr
+          %td
+            = f.label :content, 'content'
+          %td
+            = f.text_area :content, :cols => 30, :rows=>20
+      .break
+      =submit_tag 'Submit'
+  =rounded_start  

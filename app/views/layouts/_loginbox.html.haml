@@ -1,0 +1,29 @@
+-if current_user == :false 
+  = rounded_start
+  %div{:class=>'contentb'}
+    %div
+      %table{:width=>'100%'}
+        %tr
+          %td
+            -form_tag :controller=>'accounts', :action=>'login' do
+              =text_field_tag :login, 'login', :onfocus=>"J(this).attr('value','');"
+              =text_field_tag :password_text, 'password', :onfocus=>"J(this).hide();J('#password').show();J('#password').focus();"
+              =password_field_tag :password, '', {:class=>'hidden'}
+              = check_box_tag :remember_me           
+              = 'Remember Me'                 
+              = submit_tag 'Log in'
+          %td
+            =render :partial=>'accounts/signup_link.html.haml'            
+  = rounded_stop      
+-else
+  %div{:class=>'right'}
+    Hello <b>#{current_user.login}</b> <a href="/accounts/logout" class="normal">(logout)</a>
+  %br
+  %div{:id=>'navcontainer'}
+    %ul{:id=>'navlist'}
+      %li
+        %a{:href=>'/novels/new', :class=>''} create
+      %li
+        =link_to 'my Novels', user_novels_path(current_user.id), :class=>''
+      %li
+        =link_to 'my Profile', profile_path(current_user.login), :class=>''         

@@ -1,0 +1,37 @@
+- if !(error_messages_for :user).blank?
+  %div{:class=>"flash error"}= error_messages_for :user
+.heading.big
+  edit your profile
+.break  
+= rounded_start
+%div{:class=>'contentb'}
+  %div
+    - form_for @profile,@user, :url=>{:action=>"update"}, :html => { :multipart => true } do |f|
+      %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2'}
+        %tr
+          %td
+            = f.label :name, 'name'
+          %td
+            = f.text_field :name, :size => 16
+        %tr
+          %td
+            = f.label :dob, 'dob'
+          %td
+            = f.text_field :dob, :size => 5
+        %tr
+          %td
+            = f.label :about_me, 'about me'
+          %td
+            = f.text_area :about_me, :cols => 16, :rows=>3
+        %tr
+          %td
+            = f.label :webpage, 'webpage'
+          %td
+            = f.text_field :webpage, :size => 16
+        %tr
+          %td
+            = f.label :photo, 'photo'
+          %td
+            = f.file_field :photo        
+      = submit_tag 'update'
+= rounded_stop

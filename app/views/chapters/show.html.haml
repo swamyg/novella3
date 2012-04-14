@@ -1,0 +1,20 @@
+%div{:class=>"yui-u first"}
+  =render :partial => 'novels/novel_chapter_left.html.haml'
+%div{:class=>"yui-u"}
+  .heading.large
+    %a{:href=>perma_link_path(@novel.perma_link),:class=>'none'}
+      =h @novel.name 
+  .break
+  .big.text-gray
+    %a{:href=>chapter_no_path(@novel.id,@chapter.number),:class=>'none'}
+      =h @chapter.number.to_s + ".  " +@chapter.title    
+  .break
+  .medium.text-gray
+    = @chapter.content
+  .break
+  -if @chapter.number > 1
+    .light-gray.left
+      =link_to '< previous', chapter_no_path(@novel.id,@chapter.number-1) ,:class=>'normal'
+  -if @chapter.number < @chapter_count
+    .light-gray.right
+      =link_to 'next >', chapter_no_path(@novel.id,@chapter.number+1), :class=>'normal'

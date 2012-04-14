@@ -1,0 +1,27 @@
+.half-size
+  = rounded_start
+  %div{:class=>'contentb'}
+    %div
+      - form_tag do
+        %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2'}
+          %tr
+            %td
+              = 'Login'
+            %td
+              = text_field_tag :login
+          %tr
+            %td
+              = 'Password'
+            %td
+              = password_field_tag :password
+          %tr
+            %td{:align=>'right'}
+              = check_box_tag :remember_me 
+            %td
+              = 'Remember Me'
+          %tr
+            %td
+              = submit_tag 'Log in'
+            %td
+              =render :partial=>'signup_link.html.haml'
+  = rounded_stop

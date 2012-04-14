@@ -1,0 +1,41 @@
+:javascript  
+  J(function() {
+    J("#tabs").tabs();
+  });
+
+%div
+  %ul{:id=>'tabnav'}
+    %li{:class=>'tab1' + "#{' current' if @view=='popular'}" }
+      %a{:href=>"/" + "#{@genre.name}"}popular
+    %li{:class=>'tab2'  + "#{' current' if @view=='recent'}" }
+      %a{:href=>"/"+"#{@genre.name}"+"/recent"}recent
+  %div{:class=>"yui-ge"}
+    %div{:class=>"yui-u first"}
+      -@novels.each do |novel|
+        %div{:class=>"yui-gd"}
+          %div{:class=>"yui-u first"}
+            =image_tag novel.photo.url(:small)        
+          %div{:class=>"yui-u"}
+            %table{:class=>'info'}
+              %tr
+                %td{:class=>'heading big'}
+                  %a{:href=>perma_link_path(novel.perma_link),:class=>'none'}=h novel.name
+              %tr
+                %td
+                  %span{:class=>'italic'} by
+                  =link_to novel.user.login, profile_path(novel.user.login), :class=>'normal'
+              %tr
+                %td{:class=>'gray'}
+                  =h truncate(novel.description, :length =>100, :omission => '...')
+              %tr
+                %td
+                  .left
+                    %span{:class=>'bold'} genre: 
+                    =link_to novel.genre.name, genre_path(novel.genre.name), :class=>'normal'
+                  .right
+                    %span{:class=>'bold'} chapters: 
+                    =link_to novel.chapters.count, perma_link_path(novel.perma_link), :class=>'normal'
+        .break
+      .break    
+      = will_paginate @novels, :page_links=>'recent'
+    %div{:class=>"yui-u"}
