@@ -127,7 +127,7 @@ color: #932;
 .contentb div {margin-left: 5px;}
 /* box and title bar */
 .box {background:#EEE;padding:0.5em}
-.box .title{background:#BBB;text-align:center;height:10%;}
+.box .title{background:#BBB;text-align:center;height:10%;padding:2px 0px;}
 /*styling for forms using table */
 .form {margin:1em;padding:2em;}
 .general {margin:0.5em;width:100%;}
@@ -135,7 +135,8 @@ color: #932;
 .info td{padding:0.2em 0.05em;}
 .info tr{padding:0.2em 0.05em}
 /*Flash notices */
-.flash {	margin:1.5em;
+.flash {
+	margin:1.5em;
 	padding:0.666em;
 	text-align:center;
 }
@@ -175,6 +176,23 @@ a.none:hover {text-decoration:none;color:inherit}
 .large {font-size:2.75em}
 .big {font-size:2.0em}
 .medium {font-size:1.15em}
+
+/*CSS3 rounded corners*/
+div.rounded{
+  border-image: initial;
+  border-radius: 12px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+}
+div.blue {
+  background-color: #E3EFFF;
+  border: 1px solid #9CC9E6;
+}
+
+div.grey {
+  background-color: #E8E8E8;
+  border: 1px solid #C7C7C7;
+}
 
 
 /* others */

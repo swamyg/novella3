@@ -2,8 +2,10 @@ class ChaptersController < ApplicationController
   # GET /chapters
   # GET /chapters.xml
   before_filter :login_required, :except=>[:show,:index]
+  before_filter :set_novel, :except => [:index]
+  load_and_authorize_resource
   def index
-    @user = User.find(params[:user_id])
+    @user = User.find_by_login(params[:user_id])
     if !@user.nil?
       @profile = @user.profile
       @user_chapters_novels = Array.new
@@ -21,16 +23,15 @@ class ChaptersController < ApplicationController
   # GET /chapters/1
   # GET /chapters/1.xml
   def show
-    @novel = Novel.find(params[:novel_id])
-    @chapter = Chapter.find(:first, :conditions=>['novel_id=? AND number=?',params[:novel_id],params[:chapter_no]])
+    @chapter = @novel.chapters.where("number=#{params[:id]}").first
     @chapter_count = @novel.chapters.count
   end
   
   # GET /chapters/new
   # GET /chapters/new.xml
   def new
-    @chapter = Chapter.new
-    @novel = Novel.find(params[:novel_id])
+    #@chapter = Chapter.new
+    #@novel = Novel.find(params[:novel_id])
     @chapter_count = @novel.chapters.count
   end
 
@@ -87,7 +88,13 @@ class ChaptersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
   def reset
     @chapter.reset
-    end
+  end
+
+  def set_novel
+    @novel = Novel.find_by_perma_link(params[:novel_id])
+    @chapter = @novel.chapters.build
+  end
 end

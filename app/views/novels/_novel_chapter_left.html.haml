@@ -5,8 +5,8 @@
   =h @novel.description
 =print_quotes(0)
 .break
-=rounded_start
-%div{:class=>'contentb'}
+=#rounded_start
+.rounded.blue
   %table{:class=>'general'}
     %tr
       %td= link_to "Add Chapter", new_novel_chapter_path(@novel), :class=>'normal'
@@ -18,17 +18,17 @@
     %tr
       %td Comments
       %td Something
-=rounded_stop
--if !@chapter.nil?
+=#rounded_stop
+-if @chapter
   .break
-    .box
-      .title.medium
+    .box.rounded.grey
+      .rounded.dark_grey.title.medium
         This Chapter
       %table{:cellspacing=>5,:class=>'info'}
         %tr
           %td{:width=>"33%"} by
           %td{:width=>"66%"}
-            %a{:href=>"/users/#{@chapter.user.login}", :class=>'normal'}= @chapter.user.login        
+            %a{:href=>"/user/#{@chapter.user.login}", :class=>'normal'}= @chapter.user.login
         %tr
           %td created on
           %td= @novel.created_at.strftime("%M/%d/%y")
@@ -36,24 +36,24 @@
           %td last updated
           %td= @novel.updated_at.strftime("%M/%d/%y")
 .break
-.box
-  .title.medium
+.box.rounded.grey
+  .rounded.dark_grey.title.medium
     This Novel
   %table{:cellspacing=>5,:class=>'info'}
     %tr
-      %td{:width=>"33%"} by
+      %td{:width=>"33%"} Author:
       %td{:width=>"66%"}
-        %a{:href=>"/users/#{@novel.user.login}", :class=>'normal'}= @novel.user.login
+        %a{:href=>"/user/#{@novel.user.login}", :class=>'normal'}= @novel.user.login
     %tr
-      %td genre
+      %td Genre:
       %td
         %a{:href=>"/#{@novel.genre.name}", :class=>'normal'}= @novel.genre.name
     %tr
+      %td Chapters:
       %td= @chapter_count
-      %td  chapters
     %tr
-      %td created on
+      %td Created on:
       %td= @novel.created_at.strftime("%M/%d/%y")
     %tr
-      %td last updated
+      %td Last updated:
       %td= @novel.updated_at.strftime("%M/%d/%y")

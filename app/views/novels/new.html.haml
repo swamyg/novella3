@@ -1,5 +1,7 @@
-- if !(error_messages_for :novel).blank?
-  %div{:class=>"flash error"}= error_messages_for :novel
+- if @novel.errors.any?
+  %ul{:class=>"flash error"}
+    - @novel.errors.full_messages.each do |msg|
+      %li=msg
 %h1 New novel
 = rounded_start
 %div{:class=>'contentb'}

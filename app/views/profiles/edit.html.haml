@@ -1,5 +1,7 @@
-- if !(error_messages_for :user).blank?
-  %div{:class=>"flash error"}= error_messages_for :user
+- if @user.errors.any?
+  %ul{:class=>"flash error"}
+    - @user.errors.full_messages.each do |msg|
+      %li=msg
 .heading.big
   edit your profile
 .break  

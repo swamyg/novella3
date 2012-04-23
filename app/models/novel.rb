@@ -11,6 +11,9 @@ class Novel < ActiveRecord::Base
   validates_presence_of     :name, :genre_id
   validates_length_of       :description, :maximum => 255
   validates_uniqueness_of   :perma_link, :name, :case_sensitive => false
+
+  #callbacks
+  after_create :set_owner
   
   #specify the number of itesm per page for will paginate
   def self.per_page
@@ -29,5 +32,11 @@ class Novel < ActiveRecord::Base
              :order => 'created_at DESC',
              :conditions => [genre_clause]           
   end
-  
+
+  private
+
+  def set_owner
+    self.user.permissions.create!(:novel => novel, :role => 'owner')
+  end
+
 end

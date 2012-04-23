@@ -21,6 +21,7 @@ namespace :db do
         novel.perma_link = novel.name.downcase.gsub(/\s+/, '-').gsub(/[^a-zA-Z0-9_-]+/, '')
         novel.description = Populator.sentences(2..10)
         novel.created_at = 2.years.ago..Time.now
+        Permission.create!(:novel_id => novel.id, :user_id => user.id, :role => 'author')
         index = 1 # for chapter number
         Chapter.populate 1..19 do |chapter|
           chapter.novel_id = novel.id

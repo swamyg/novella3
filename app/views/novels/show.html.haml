@@ -14,4 +14,4 @@
     .move-left
       -@chapters.each_with_index do |chapter,idx|
         .medium
-          =link_to chapter.number.to_s+". "+chapter.title, chapter_no_path(@novel.id,chapter.number), :class=>'normal tall'
+          =link_to chapter.number.to_s+". "+chapter.title, chapter_no_path(@novel.perma_link,chapter.number), :class=>'normal tall'

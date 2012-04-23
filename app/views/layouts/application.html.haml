@@ -23,7 +23,7 @@
             =render :partial=>"layouts/genre_menu.html.haml"              
       %div{:id=>"bd",:role=>"main", :class=>'content'}
         %div{:class=>"yui-gd"}
-          = flash_div :warning, :notice, :success, :error
+          = (flash_div :warning, :notice, :success, :error).html_safe
           =yield
       %div{:id=>"ft", :role=>"contentinfo", :class=>'footer light-gray'}
         .break

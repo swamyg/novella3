@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :novels
   has_many :chapters
   has_one :profile
+  has_many :permissions
   
   named_scope :find_by_id_or_login, lambda { |id_or_login|
     { :conditions => ["id = ? OR login = ?", id_or_login, id_or_login]}   
@@ -55,6 +56,24 @@ class User < ActiveRecord::Base
     self.remember_token_expires_at = nil
     self.remember_token            = nil
     save(false)
+  end
+
+  #roles & permissions methods
+
+  def is_author?(novel)
+    Permission.where(:user_id => self.id, :novel_id => novel.id, :role => 'author').present?
+  end
+
+  def is_editor?(novel)
+    Permission.where(:user_id => self.id, :novel_id => novel.id, :role => 'editor').present?
+  end
+
+  def is_contributor?(novel)
+    Permission.where(:user_id => self.id, :novel_id => novel.id, :role => 'contributor').present?
+  end
+
+  def is_moderator?
+    Permission.where(:user_id => self.id, :role => 'moderator').present?
   end
 
   protected

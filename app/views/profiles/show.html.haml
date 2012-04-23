@@ -16,11 +16,11 @@
       %tr
         %td{:width=>"33%"} novels written
         %td{:width=>"66%"}
-          =link_to @user.novels.count, user_novels_path(@user.id), :class=>'normal'
+          =link_to @user.novels.count, user_novels_path(@user.login), :class=>'normal'
       %tr
         %td chapters conrtibuted
         %td
-          =link_to @user.chapters.count, user_chapters_path(@user.id), :class=>'normal'
+          =link_to @user.chapters.count, user_chapters_path(@user.login), :class=>'normal'
       -unless @profile.about_me.blank?
         %tr
           %td about me

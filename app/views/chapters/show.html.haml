@@ -14,7 +14,7 @@
   .break
   -if @chapter.number > 1
     .light-gray.left
-      =link_to '< previous', chapter_no_path(@novel.id,@chapter.number-1) ,:class=>'normal'
+      =link_to '< previous', chapter_no_path(@novel.perma_link,@chapter.number-1) ,:class=>'normal'
   -if @chapter.number < @chapter_count
     .light-gray.right
-      =link_to 'next >', chapter_no_path(@novel.id,@chapter.number+1), :class=>'normal'
+      =link_to 'next >', chapter_no_path(@novel.perma_link,@chapter.number+1), :class=>'normal'

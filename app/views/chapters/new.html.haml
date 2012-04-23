@@ -1,11 +1,14 @@
-- if !(error_messages_for :chapter).blank?
-  %div{:class=>"flash error"}= error_messages_for :chapter
+- if @chapter.errors.any?
+  %ul{:class=>"flash error"}
+    - @chapter.errors.full_messages.each do |msg|
+      %li=msg
 %div{:class=>"yui-u first"}
 %div{:class=>"yui-u"}  
   .big Add New Chapter
   .break
   =rounded_start
-  %div{:class=>'contentb'}    -form_for @chapter,@novel, :url=>{:action=>'create'} do |f|  
+  %div{:class=>'contentb'}
+    -form_for @chapter,@novel, :url=>{:action=>'create'} do |f|  
       %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2', :width=>'100%'}
         %tr
           %td

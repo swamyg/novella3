@@ -35,6 +35,7 @@ module Novella3
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
+    config.autoload_paths << "#{Rails.root}/lib"
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]

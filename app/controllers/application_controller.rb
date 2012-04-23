@@ -38,6 +38,9 @@ class ApplicationController < ActionController::Base
   helper_method :menu_items, :current_user
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
-  
-  
+
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = "You do not have sufficient privileges to perform this action."
+    redirect_to root_url, :alert => exception.message
+  end
 end

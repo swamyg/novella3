@@ -10,6 +10,7 @@ gem 'populator'
 gem 'paperclip'
 gem 'will_paginate'
 gem 'haml'
+gem 'cancan'
 
 # Use unicorn as the web server
 # gem 'unicorn'
