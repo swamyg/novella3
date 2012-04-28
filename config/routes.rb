@@ -4,6 +4,7 @@ Novella3::Application.routes.draw do
   ##singular resource with mapping
   resources :novels, :requirements => {:id => /[0-9]+/} do
     resources :chapters
+    resources :permissions
   end
   match 'novels/:novel_id/chapters/:chapter_no' => "chapters#show", :requirements => {:novel_id => /[0-9]+/, :chapter_no => /[0-9]+/}, :as => :chapter_no
   match 'user/:login' => "profiles#show", :requirements => {:login => /[a-z]+/}, :as => :profile

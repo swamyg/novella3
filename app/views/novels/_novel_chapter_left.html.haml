@@ -17,7 +17,8 @@
           ="Edit Novel"      
     %tr
       %td Comments
-      %td Something
+      %td
+        =link_to "Request permission", new_novel_permission_path(@novel.perma_link), :class=>'normal'
 =#rounded_stop
 -if @chapter
   .break

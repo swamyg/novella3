@@ -1,0 +1,28 @@
+- if @request.errors.any?
+  %ul{:class=>"flash error"}
+    - @request.errors.full_messages.each do |msg|
+      %li=msg
+%div{:class=>"yui-u first"}
+%div{:class=>"yui-u"}
+  .big Request to be a contributor
+  .break
+  .rounded.blue
+    -form_for @request, :url=>{:action=>'create'} do |f|
+      %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2', :width=>'100%'}
+        %tr
+          %td
+            = f.label :novel_name, 'Novel'
+          %td
+            = @novel.name
+        %tr
+          %td
+            = f.label :to_user_id, "To user"
+          %td
+            = @novel.author.login
+        %tr
+          %td
+            = f.label :message, 'personal message'
+          %td
+            = f.text_area :message, :size => 64
+      .break
+      =submit_tag 'Submit'

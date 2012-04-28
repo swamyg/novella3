@@ -33,6 +33,10 @@ class Novel < ActiveRecord::Base
              :conditions => [genre_clause]           
   end
 
+  def author
+    user
+  end
+
   private
 
   def set_owner
