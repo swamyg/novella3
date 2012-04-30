@@ -25,4 +25,25 @@ module ApplicationHelper
     Haml::Engine.new(haml).to_html
   end
 
+  def profile_link(user)
+    link_to user.login, user_path(user.login), :class =>'normal'
+  end
+
+  def novel_link(novel)
+    link_to novel.perma_link, novel_path(novel.perma_link), :class =>'normal'
+  end
+
+  def approve_request_button
+    "<span>" + (submit_tag "approve") +"</span>"
+  end
+
+  def deny_request_button
+    "<span>" + (submit_tag "deny") +"</span>"
+  end
+
+  def cancel_dismiss_request_button(request)
+    button = request.status == 'pending' ? (submit_tag "cancel") : (submit_tag "dismiss")
+    "<span>" + button +"</span>"
+  end
+
 end

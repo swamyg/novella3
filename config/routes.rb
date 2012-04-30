@@ -4,7 +4,12 @@ Novella3::Application.routes.draw do
   ##singular resource with mapping
   resources :novels, :requirements => {:id => /[0-9]+/} do
     resources :chapters
-    resources :permissions
+    resources :requests
+  end
+  resources :requests do
+    member do
+      post :handle
+    end
   end
   match 'novels/:novel_id/chapters/:chapter_no' => "chapters#show", :requirements => {:novel_id => /[0-9]+/, :chapter_no => /[0-9]+/}, :as => :chapter_no
   match 'user/:login' => "profiles#show", :requirements => {:login => /[a-z]+/}, :as => :profile
@@ -14,6 +19,7 @@ Novella3::Application.routes.draw do
     resources :chapters
   end
   match 'accounts/:action' , :controller => "accounts", :action => :action, :as => :accounts
+  #match 'requests' => "re#index", :as => :requests
   ##Named Routes
   ##novel_id 'novels/:id', :controller => 'novels', :action => 'show',
   match 'novels/:perma_link' => "novels#show", :as => :perma_link, :perma_link => :perma_link

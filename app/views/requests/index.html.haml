@@ -1,0 +1,6 @@
+%div{:class=>"yui-u first"}
+%div{:class=>"yui-u"}
+  =render :partial => 'sent_requests', :locals => {:requests => @approved_requests, :title => 'Approved Requests', :message =>' has approved your request to be an editor of '}
+  =render :partial => 'sent_requests', :locals => {:requests => @denied_requests, :title => 'Rejected Requests', :message =>' has denied your request to be an editor of '}
+  =render :partial => 'sent_requests', :locals => {:requests => @pending_requests, :cancel => true, :title => 'Pending Requests', :message =>' has not yet approved or denied your request to be an editor of '}
+  =render :partial => 'received_requests', :locals => {:requests => @received_requests}

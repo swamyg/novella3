@@ -11,8 +11,6 @@ class GenreController < ApplicationController
       @novels = @view == 'popular' ? Novel.popular(@genre.id,params[:page]) : Novel.recent(@genre.id,params[:page])
       if false
       @novels.each do |novel|      
-      puts " ************************************** "+@novels.id.to_s
-      puts " **************************NOVEL user IS:"+@novels.user.id.to_s
       end
       end
   end

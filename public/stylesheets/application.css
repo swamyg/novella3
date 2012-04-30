@@ -161,10 +161,13 @@ background-color: #f00!important;
 a.normal, .pagination a{text-decoration:none;color:#77A3FC;}
 a.normal:hover, .pagination a:hover {text-decoration:underline;}
 
+a.action{text-decoration:none;color:#1942CC;}
+a.action:hover{text-decoration:underline;}
+
 a.none {text-decoration:none;color:inherit}
 a.none:hover {text-decoration:none;color:inherit}
 /* font styles */
-.heading {color:#666}
+.heading {color:#666;font-size:1.5em}
 .text-gray{color:#444;}
 .gray{color:#999;}
 .light-gray{color:#aaa;}
@@ -198,3 +201,8 @@ div.grey {
 /* others */
 .break {clear:both;margin:1em 0em;}
 .half-size{width:50%;}
+.inner{margin:0.75em 1.5em;}
+.message_box{padding: 0.35em;width:21em;}
+.actions{margin-left:0.0em;padding:0.25em;}
+.actions span{margin-left:0.45em;}
+

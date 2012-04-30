@@ -1,0 +1,19 @@
+.break
+.heading= title
+.inner
+  -puts "YAY! #{title}"
+  - if !requests.empty?
+    %ul
+      - requests.each do |r|
+        %li
+          .rounded.grey.message_box
+            = (profile_link(r.to_user).html_safe + message + novel_link(r.novel)).html_safe
+            -if r.comment.present?
+              %p
+                ="Comment: #{r.comment}"
+            = form_tag handle_request_path(r) do
+              .actions
+                =cancel_dismiss_request_button(r).html_safe
+
+  - else
+    = "You have no #{title.downcase} at this point"

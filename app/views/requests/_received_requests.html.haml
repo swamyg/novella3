@@ -1,0 +1,26 @@
+.break
+.heading Received Requests
+.inner
+  - if !requests.empty?
+    %ul
+      - requests.each do |r|
+        %li
+          .rounded.grey.message_box
+            = "#{profile_link(r.from_user)} has requested to be an editor of #{novel_link(r.novel)}".html_safe
+            -if r.message.present?
+              %p
+                %b
+                  Message:
+                ="#{r.message}"
+            .actions
+              = form_tag handle_request_path(r) do
+                %b
+                  Your comment:
+                %br
+                =text_area_tag :comment, nil, :cols=>40,:rows=>7
+                .break
+                =approve_request_button.html_safe
+                =deny_request_button.html_safe
+
+  - else
+    = "You have not received any request at this point"

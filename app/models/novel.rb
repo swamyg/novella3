@@ -1,5 +1,6 @@
 class Novel < ActiveRecord::Base  
   has_many :chapters
+  has_many :permissions
   belongs_to :user
   belongs_to :genre
   
@@ -40,7 +41,7 @@ class Novel < ActiveRecord::Base
   private
 
   def set_owner
-    self.user.permissions.create!(:novel => novel, :role => 'owner')
+    self.user.permissions.create!(:novel => novel, :role => 'author')
   end
 
 end

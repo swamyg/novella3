@@ -46,14 +46,14 @@ class ChaptersController < ApplicationController
   def create
     @chapter = Chapter.new(params[:chapter])
     return unless request.post?
-    @novel = Novel.find(params[:novel_id])
+    #@novel = Novel.find_by_perma_link(params[:novel_id])
     @chapter_count = @novel.chapters.count
     @chapter.number = @chapter_count + 1
-    @chapter.content = @chapter.content.gsub!(/\n/, '<br/>') #convert new lines into paragraphs
+    @chapter.content.gsub!(/\n/, '<br/>') #convert new lines into paragraphs
     @chapter.user_id = current_user.id
     @chapter.novel_id = @novel.id
     @chapter.save!
-    redirect_to chapter_no_path(@novel.id,@chapter.number)
+    redirect_to chapter_no_path(@novel.perma_link,@chapter.number)
     flash[:success] = "Chapter was created successfully, You can continue adding chapters."
     rescue ActiveRecord::RecordInvalid
       render :action => 'new'

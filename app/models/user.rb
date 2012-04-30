@@ -4,10 +4,8 @@ class User < ActiveRecord::Base
   has_many :chapters
   has_one :profile
   has_many :permissions
+  has_many :requests
   
-  named_scope :find_by_id_or_login, lambda { |id_or_login|
-    { :conditions => ["id = ? OR login = ?", id_or_login, id_or_login]}   
-  }
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 
@@ -30,6 +28,10 @@ class User < ActiveRecord::Base
   # Encrypts some data with the salt.
   def self.encrypt(password, salt)
     Digest::SHA1.hexdigest("--#{salt}--#{password}--")
+  end
+
+  def self.find_by_id_or_login(id_or_login)
+    where(["id = ? OR login = ?", id_or_login, id_or_login])
   end
 
   # Encrypts the password with the user salt
@@ -58,6 +60,7 @@ class User < ActiveRecord::Base
     save(false)
   end
 
+
   #roles & permissions methods
 
   def is_author?(novel)
@@ -74,6 +77,14 @@ class User < ActiveRecord::Base
 
   def is_moderator?
     Permission.where(:user_id => self.id, :role => 'moderator').present?
+  end
+
+  def sent_requests
+    Request.where(:from_user_id => self.id, :dismissed => false)
+  end
+
+  def received_requests
+    Request.where(:to_user_id => self.id, :status => 'pending', :dismissed => false)
   end
 
   protected

@@ -73,10 +73,13 @@ ActiveRecord::Schema.define(:version => 20120425053617) do
   end
 
   create_table "requests", :force => true do |t|
-    t.integer  "from_user_id", :null => false
-    t.integer  "to_user_id",   :null => false
-    t.integer  "novel_id",     :null => false
+    t.integer  "from_user_id",                        :null => false
+    t.integer  "to_user_id",                          :null => false
+    t.integer  "novel_id",                            :null => false
+    t.string   "status",       :default => "pending"
     t.text     "message"
+    t.text     "comment"
+    t.boolean  "dismissed",    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

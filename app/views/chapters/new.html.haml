@@ -6,9 +6,8 @@
 %div{:class=>"yui-u"}  
   .big Add New Chapter
   .break
-  =rounded_start
-  %div{:class=>'contentb'}
-    -form_for @chapter,@novel, :url=>{:action=>'create'} do |f|  
+  .rounded.blue
+    -form_for @chapter,@novel, :url=>{:action=>'create'} do |f|
       %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2', :width=>'100%'}
         %tr
           %td
@@ -32,4 +31,3 @@
             = f.text_area :content, :cols => 30, :rows=>20
       .break
       =submit_tag 'Submit'
-  =rounded_start  
