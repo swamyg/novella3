@@ -1,8 +1,9 @@
-- if !(error_messages_for :novel).blank?
-  %div{:class=>"flash error"}= error_messages_for :novel
+- if @novel.errors.any?
+  %ul{:class=>"flash error"}
+    - @novel.errors.full_messages.each do |msg|
+      %li=msg
 %h1 Editing novel
-= rounded_start
-%div{:class=>'contentb'}
+.rounded.blue
   -form_for @novel, :url=>{:action=>'update'}, :html => { :multipart => true } do |f|
     %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2'}
       %tr
@@ -28,4 +29,3 @@
       %tr
         %td
           =f.submit 'Update'
-= rounded_stop

@@ -5,14 +5,13 @@
   =h @novel.description
 =print_quotes(0)
 .break
-=#rounded_start
 .rounded.blue
   %table{:class=>'general'}
     %tr
       %td= link_to "Add Chapter", new_novel_chapter_path(@novel.perma_link), :class=>'normal'
       %td
         -if current_user.id==@novel.user.id
-          =link_to "Edit Novel", edit_novel_path(@novel), :class=>'normal'
+          =link_to "Edit Novel", edit_novel_path(@novel.perma_link), :class=>'normal'
         -else
           ="Edit Novel"      
     %tr

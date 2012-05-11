@@ -5,8 +5,7 @@
 .heading.big
   edit your profile
 .break  
-= rounded_start
-%div{:class=>'contentb'}
+.rounded.blue
   %div
     - form_for @profile,@user, :url=>{:action=>"update"}, :html => { :multipart => true } do |f|
       %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2'}
@@ -34,6 +33,5 @@
           %td
             = f.label :photo, 'photo'
           %td
-            = f.file_field :photo        
+            = f.file_field :photo
       = submit_tag 'update'
-= rounded_stop

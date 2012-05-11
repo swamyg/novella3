@@ -1,8 +1,7 @@
 - if !(error_messages_for :novel).blank?
   %div{:class=>"flash error"}= error_messages_for :novel
 %h1 My Profile
-= rounded_start
-%div{:class=>'contentb'}
+.rounded.blue
   -form_for :profile, :url=>{:action=>'edit'}, :html => { :multipart => true } do |f|
     %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2'}
       %tr
@@ -34,4 +33,3 @@
       %tr
         %td
           =f.submit 'Create'
-= rounded_stop          

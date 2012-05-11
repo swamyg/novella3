@@ -2,8 +2,7 @@
   %ul{:class=>"flash error"}
     - @user.errors.full_messages.each do |msg|
       %li=msg
-= rounded_start
-%div{:class=>'contentb'}
+.rounded.blue
   %div
     - form_for :user do |f|
       %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2'}
@@ -28,4 +27,3 @@
           %td
             = f.password_field :password_confirmation, :size => 16
       = submit_tag 'Submit'
-= rounded_stop
