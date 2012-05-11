@@ -15,9 +15,12 @@
         -else
           ="Edit Novel"      
     %tr
-      %td Comments
+      %td= link_to "Add Character", new_novel_character_path(@novel.perma_link), :class=>'normal'
       %td
         =link_to "Request permission", new_novel_request_path(@novel.perma_link), :class=>'normal'
+    %tr
+      %td= link_to "View Characters", "/novels/#{@novel.perma_link}?view_characters=true", :class=>'normal'
+      %td= link_to "View Chapters", novel_path(@novel.perma_link), :class=>'normal'
 =#rounded_stop
 -if @chapter
   .break

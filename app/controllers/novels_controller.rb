@@ -20,9 +20,14 @@ class NovelsController < ApplicationController
   # GET /novels/1.xml
   def show
     #@novel = Novel.find_by_perma_link(params[:id])
-    @chapters = @novel.chapters
     @chapter_count = @novel.chapters.count
-    flash[:notice] = "This novel doesn't seem to have any content, please add a chapter or two" if @chapter_count==0
+    if params[:view_characters]
+      @show_characters = true
+      @characters = @novel.characters
+    else
+      @chapters = @novel.chapters
+      flash[:notice] = "This novel doesn't seem to have any content, please add a chapter or two" if @chapter_count==0
+    end
   end
 
   # GET /novels/new

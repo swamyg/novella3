@@ -1,5 +1,6 @@
 class Novel < ActiveRecord::Base  
   has_many :chapters
+  has_many :characters
   has_many :permissions
   belongs_to :user
   belongs_to :genre

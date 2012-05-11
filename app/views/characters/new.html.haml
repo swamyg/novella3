@@ -1,0 +1,33 @@
+- if @character.errors.any?
+  %ul{:class=>"flash error"}
+    - @character.errors.full_messages.each do |msg|
+      %li=msg
+%div{:class=>"yui-u first"}
+%div{:class=>"yui-u"}
+  .big Add New character
+  .break
+  .rounded.blue
+    -form_for @character,@novel, :url=>{:action=>'create'} do |f|
+      %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2', :width=>'100%'}
+        %tr
+          %td
+            = f.label :novel_id, 'Novel'
+          %td
+            = @novel.name
+        %tr
+          %td
+            = f.label :name, 'character name'
+          %td
+            = f.text_field :name, :size => 32
+        %tr
+          %td
+            = f.label :description, 'description'
+          %td
+            = f.text_field :description, :size => 32
+        %tr
+          %td
+            = f.label :character_type, 'Character Type'
+          %td
+            = f.text_field :character_type, :size => 32
+      .break
+      =submit_tag 'Submit'

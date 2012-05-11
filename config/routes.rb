@@ -5,6 +5,7 @@ Novella3::Application.routes.draw do
   resources :novels, :requirements => {:id => /[0-9]+/} do
     resources :chapters
     resources :requests
+    resources :characters
   end
   resources :requests do
     member do

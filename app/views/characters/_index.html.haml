@@ -1,0 +1,13 @@
+%div{:class=>"yui-u first"}
+%div{:class=>"yui-u"}
+  -if @characters.present?
+    .big Characters
+    .break
+    .move-left
+      -@characters.each do |character|
+        .medium
+          =link_to character.name, novel_character_path(@novel.perma_link, character.id), :class=>'normal tall'
+  - else
+    .big No Characters yet
+    .break
+    = link_to "add one", new_characters_novels_path(@novel.perma_link)

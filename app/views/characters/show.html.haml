@@ -1,0 +1,14 @@
+%div{:class=>"yui-u first"}
+  =render :partial => 'novels/novel_chapter_left.html.haml'
+%div{:class=>"yui-u"}
+  .heading.large
+    %a{:href=>perma_link_path(@novel.perma_link),:class=>'none'}
+      =h @novel.name 
+  .break
+  .big.text-gray
+    %a{:href=>novel_character_path(@novel.perma_link, @character.id),:class=>'none'}
+      =h @character.name
+  .break
+  .medium.text-gray
+    = @character.description.html_safe
+  .break
