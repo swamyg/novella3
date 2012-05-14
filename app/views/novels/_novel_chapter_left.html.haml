@@ -9,18 +9,22 @@
   %table{:class=>'general'}
     %tr
       %td= link_to "Add Chapter", new_novel_chapter_path(@novel.perma_link), :class=>'normal'
-      %td
-        -if current_user.id==@novel.user.id
-          =link_to "Edit Novel", edit_novel_path(@novel.perma_link), :class=>'normal'
-        -else
-          ="Edit Novel"      
+      %td= link_to "View Chapters", novel_path(@novel.perma_link), :class=>'normal'
+
     %tr
       %td= link_to "Add Character", new_novel_character_path(@novel.perma_link), :class=>'normal'
-      %td
-        =link_to "Request permission", new_novel_request_path(@novel.perma_link), :class=>'normal'
-    %tr
       %td= link_to "View Characters", "/novels/#{@novel.perma_link}?view_characters=true", :class=>'normal'
-      %td= link_to "View Chapters", novel_path(@novel.perma_link), :class=>'normal'
+
+    - if current_user != false
+      %tr
+        %td
+          - if current_user.can_edit?(@novel)
+            =link_to "Edit Novel", edit_novel_path(@novel.perma_link), :class=>'normal'
+          -else
+            =link_to "Request permission", new_novel_request_path(@novel.perma_link), :class=>'normal'
+
+        -if current_user.is_author?(@novel) && @novel.locked?(current_user)
+          %td= link_to "Release lock", "/novels/#{@novel.perma_link}?lock=release", :class=>'normal'
 =#rounded_stop
 -if @chapter
   .break

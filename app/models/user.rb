@@ -79,6 +79,10 @@ class User < ActiveRecord::Base
     Permission.where(:user_id => self.id, :role => 'moderator').present?
   end
 
+  def can_edit?(novel)
+    (is_author?(novel) || is_editor?(novel))
+  end
+
   def sent_requests
     Request.where(:from_user_id => self.id, :dismissed => false)
   end

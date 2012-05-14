@@ -39,6 +39,21 @@ class Novel < ActiveRecord::Base
     user
   end
 
+  def locked?(user)
+    lock = Lock.where(:novel_id => self.id).first
+    return if lock.nil?
+    !(lock.user_id == user.id)
+  end
+
+  def lock(user)
+    return if Lock.where(:novel_id => self.id, :user_id => user.id).present?
+    Lock.create!(:novel_id => self.id, :user_id => user.id)
+  end
+
+  def unlock
+    Lock.find_by_novel_id(self.id).destroy
+  end
+
   private
 
   def set_owner

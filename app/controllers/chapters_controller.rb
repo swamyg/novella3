@@ -32,13 +32,23 @@ class ChaptersController < ApplicationController
   def new
     #@chapter = Chapter.new
     #@novel = Novel.find(params[:novel_id])
+    if @novel.locked?
+      flash[:notice] = "This novel is currently locked for editing. If you are the author please release lock and try again."
+      redirect_to perma_link_path(@novel.perma_link)
+    end
     @chapter_count = @novel.chapters.count
+    @novel.lock(current_user)
   end
 
   # GET /chapters/1/edit
   def edit
+    if @novel.locked?
+      flash[:notice] = "This novel is currently locked for editing. If you are the author please release lock and try again."
+      redirect_to :controller => :novels, :action => :show, :id => @novel.perma_link
+    end
     @chapter = Chapter.find(params[:id])
     @chapter_count = @novel.chapters.count
+    @novel.lock(current_user)
   end
   
   # POST /chapters
@@ -55,6 +65,7 @@ class ChaptersController < ApplicationController
     @chapter.save!
     redirect_to chapter_no_path(@novel.perma_link,@chapter.number)
     flash[:success] = "Chapter was created successfully, You can continue adding chapters."
+    @novel.unlock
     rescue ActiveRecord::RecordInvalid
       render :action => 'new'
   end    
@@ -68,6 +79,7 @@ class ChaptersController < ApplicationController
     respond_to do |format|
       if @chapter.update_attributes(params[:chapter])
         flash[:notice] = 'Chapter was successfully updated.'
+        @novel.unlock
         format.html { redirect_to(@chapter) }
         format.xml  { head :ok }
       else
