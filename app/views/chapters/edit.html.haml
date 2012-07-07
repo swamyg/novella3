@@ -1,10 +1,14 @@
+- content_for :head do
+  =javascript_include_tag "http://mobwrite3.appspot.com/static/compressed_form.js"
+
 - if @chapter.errors.any?
   %ul{:class=>"flash error"}
     - @chapter.errors.full_messages.each do |msg|
       %li=msg
 %h1 Editing novel
 .rounded.blue
-  -form_for @chapter, :url=>{:action=>'update'}, :html => { :multipart => true } do |f|
+  - form_id = "novella_chapter_form_#{@chapter.id}"
+  -form_for @chapter, :url=>{:action=>'update'}, :html => { :multipart => true, :id => form_id } do |f|
     %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2'}
       %tr
         %td
@@ -26,3 +30,9 @@
 
 .break
 = link_to 'Back', novel_chapter_path(@novel.perma_link, @chapter.number), :class => 'normal'
+
+:javascript
+  $(function(){
+    mobwrite.syncGateway = 'http://mobwrite3.appspot.com/scripts/q.py';
+    mobwrite.share('#{form_id}');
+  })
