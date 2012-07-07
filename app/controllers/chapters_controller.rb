@@ -32,9 +32,9 @@ class ChaptersController < ApplicationController
   def new
     #@chapter = Chapter.new
     #@novel = Novel.find(params[:novel_id])
-    if @novel.locked?
+    if @novel.locked?(current_user)
       flash[:notice] = "This novel is currently locked for editing. If you are the author please release lock and try again."
-      redirect_to perma_link_path(@novel.perma_link)
+      return redirect_to perma_link_path(@novel.perma_link)
     end
     @chapter_count = @novel.chapters.count
     @novel.lock(current_user)
@@ -42,9 +42,9 @@ class ChaptersController < ApplicationController
 
   # GET /chapters/1/edit
   def edit
-    if @novel.locked?
+    if @novel.locked?(current_user)
       flash[:notice] = "This novel is currently locked for editing. If you are the author please release lock and try again."
-      redirect_to :controller => :novels, :action => :show, :id => @novel.perma_link
+      return redirect_to perma_link_path(@novel.perma_link)
     end
     @chapter = Chapter.find(params[:id])
     @chapter_count = @novel.chapters.count
@@ -80,7 +80,7 @@ class ChaptersController < ApplicationController
       if @chapter.update_attributes(params[:chapter])
         flash[:notice] = 'Chapter was successfully updated.'
         @novel.unlock
-        format.html { redirect_to(@chapter) }
+        format.html { redirect_to(novel_chapter_path(@novel.perma_link, @chapter.number)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

@@ -1,24 +1,28 @@
-<h1>Editing chapter</h1>
+- if @chapter.errors.any?
+  %ul{:class=>"flash error"}
+    - @chapter.errors.full_messages.each do |msg|
+      %li=msg
+%h1 Editing novel
+.rounded.blue
+  -form_for @chapter, :url=>{:action=>'update'}, :html => { :multipart => true } do |f|
+    %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2'}
+      %tr
+        %td
+          = f.label :title, 'title'
+          %br
+          = f.text_field :title, :size => 32
+      %tr
+        %td
+          = f.label :number, 'chapter number'
+          %br
+          = f.text_field :number, :readonly => true
+      %td
+        = f.label :content, 'content'
+        %br
+        = f.text_area :content, :cols =>75, :rows=>15
+      %tr
+        %td
+          =f.submit 'Update'
 
-<% form_for(@chapter) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :number %><br />
-    <%= f.text_field :number %>
-  </p>
-  <p>
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
-
-<%= link_to 'Show', @chapter %> |
-<%= link_to 'Back', chapters_path %>
+.break
+= link_to 'Back', novel_chapter_path(@novel.perma_link, @chapter.number), :class => 'normal'

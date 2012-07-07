@@ -1,6 +1,8 @@
 %div{:class=>"yui-u first"}
   =render :partial => 'novels/novel_chapter_left.html.haml'
 %div{:class=>"yui-u"}
+  .right
+    = link_to "edit chapter", edit_novel_chapter_path(@novel.perma_link, @chapter.number), :class => 'normal'
   .heading.large
     %a{:href=>perma_link_path(@novel.perma_link),:class=>'none'}
       =h @novel.name 
