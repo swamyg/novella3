@@ -7,6 +7,11 @@ Novella3::Application.routes.draw do
     resources :requests
     resources :characters
   end
+  resources :chapters do
+    member do
+      get :unload
+    end
+  end
   resources :requests do
     member do
       post :handle

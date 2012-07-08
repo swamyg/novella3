@@ -33,13 +33,10 @@ class AccountsController < ApplicationController
   def signup
     @user = User.new(params[:user])
     return unless request.post?
-    puts " YAYAYAY * *****************3737282838383738********************************************* "
     @user.save!
     @profile = Profile.new
     @profile.user_id = @user.id
-    puts " YAYAYAY * ****NORTH MAREICAK********************************************************* "+@profile.user_id.to_s
     @profile.save!
-    puts " YAYAYAY * ************************************************************* "
     self.current_user = @user
     session[:user] = self.current_user
     puts " YAYAYAY * ****************yo********************************************* "

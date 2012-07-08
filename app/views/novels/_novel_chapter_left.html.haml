@@ -15,7 +15,7 @@
       %td= link_to "Add Character", new_novel_character_path(@novel.perma_link), :class=>'normal'
       %td= link_to "View Characters", "/novels/#{@novel.perma_link}?view_characters=true", :class=>'normal'
 
-    - if current_user != false
+    - if current_user !=:false
       %tr
         %td
           - if current_user.can_edit?(@novel)

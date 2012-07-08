@@ -10,7 +10,7 @@
   - show_or_not = @chapter.concurrent_editors > 1 ? '':'none'
   .flash.notice.edit_notice{:style=>"width: 300px; text-align: center; display:#{show_or_not};"}
     %span.concurrent_editors= (@chapter.concurrent_editors - 1)
-    other person is currently editing this novel
+    other person(s) is currently editing this novel
 %h1 Editing novel
 .rounded.blue
   - form_id = "novella_chapter_form_#{@chapter.id}"
@@ -42,4 +42,13 @@
     mobwrite.syncGateway = 'http://mobwrite3.appspot.com/scripts/q.py';
     mobwrite.share("#{form_id}");
     Poller.poll("/polls/chapter/#{@chapter.id}")
-  })
+
+    window.onbeforeunload = function() {
+      $.ajax({
+        type: 'get',
+        url: "/chapters/#{@chapter.id}/unload",
+        async : false,
+      });
+    }
+  });
+

@@ -2,6 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    user = user == :false ? User.new : user
     can [:read], :all
     can [:create, :new], Novel if !user.nil?
     can [:delete, :update], Novel do |novel|
@@ -10,7 +11,7 @@ class Ability
     can [:edit, :update], Novel do |novel|
       user.is_author?(novel) || user.is_editor?(novel)
     end
-    can [:manage], Chapter do |chapter|
+    can [:manage, :unload], Chapter do |chapter|
       user.is_author?(chapter.novel) || user.is_editor?(chapter.novel) || user.is_contributor?(chapter.novel) || user.is_moderator?
     end
     can [:manage], Character do |character|

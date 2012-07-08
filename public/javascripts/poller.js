@@ -1,6 +1,6 @@
 var Poller = {
   poll: function(poll_url, numPolls, timeInMs){
-    if(typeof(numPolls)==='undefined') numPolls = 100;
+    if(typeof(numPolls)==='undefined') numPolls = 1000;
     if(typeof(timeInMs)==='undefined') timeInMs = 5000;
     $.get(poll_url, function(data) {
       data = JSON.parse(data);

@@ -2,7 +2,7 @@ class ChaptersController < ApplicationController
   # GET /chapters
   # GET /chapters.xml
   before_filter :login_required, :except=>[:show,:index]
-  before_filter :set_novel, :except => [:index]
+  before_filter :set_novel, :except => [:index, :unload]
   load_and_authorize_resource
   def index
     @user = User.find_by_login(params[:user_id])
@@ -88,6 +88,11 @@ class ChaptersController < ApplicationController
         format.xml  { render :xml => @chapter.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  def unload
+    @chapter.remove_concurrent_editor(current_user)
+    render :nothing => true
   end
 
   # DELETE /chapters/1

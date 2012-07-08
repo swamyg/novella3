@@ -11,7 +11,9 @@ class Chapter < ActiveRecord::Base
   end
 
   def remove_concurrent_editor(user)
-    self.activities.where("user_id=#{user.id} AND activity_type='editing' AND chapter_id = #{self.id}").first.destroy
+    if record = self.activities.where("user_id=#{user.id} AND activity_type='editing' AND chapter_id = #{self.id}").first
+      record.destroy
+    end
   end
 
   def concurrent_editors
