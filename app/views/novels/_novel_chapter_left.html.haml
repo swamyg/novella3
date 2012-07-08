@@ -23,8 +23,8 @@
           -else
             =link_to "Request permission", new_novel_request_path(@novel.perma_link), :class=>'normal'
 
-        -if current_user.is_author?(@novel)# && @novel.locked?(current_user)
-          %td= link_to "Release lock", "/novels/#{@novel.perma_link}?lock=release", :class=>'normal'
+        -#-if current_user.is_author?(@novel)# && @novel.locked?(current_user)
+        -#  %td= link_to "Release lock", "/novels/#{@novel.perma_link}?lock=release", :class=>'normal'
 =#rounded_stop
 -if @chapter
   .break

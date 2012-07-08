@@ -32,23 +32,24 @@ class ChaptersController < ApplicationController
   def new
     #@chapter = Chapter.new
     #@novel = Novel.find(params[:novel_id])
-    if @novel.locked?(current_user)
-      flash[:notice] = "This novel is currently locked for editing. If you are the author please release lock and try again."
-      return redirect_to perma_link_path(@novel.perma_link)
-    end
+    #if @novel.locked?(current_user)
+    #  flash[:notice] = "This novel is currently locked for editing. If you are the author please release lock and try again."
+    #  return redirect_to perma_link_path(@novel.perma_link)
+    #end
     @chapter_count = @novel.chapters.count
-    @novel.lock(current_user)
+    #@novel.lock(current_user)
   end
 
   # GET /chapters/1/edit
   def edit
-    if @novel.locked?(current_user)
-      flash[:notice] = "This novel is currently locked for editing. If you are the author please release lock and try again."
-      return redirect_to perma_link_path(@novel.perma_link)
-    end
+    #if @novel.locked?(current_user)
+    #  flash[:notice] = "This novel is currently locked for editing. If you are the author please release lock and try again."
+    #  return redirect_to perma_link_path(@novel.perma_link)
+    #end
     @chapter = Chapter.find(params[:id])
     @chapter_count = @novel.chapters.count
-    @novel.lock(current_user)
+    @chapter.concurrent_editors +=1
+    #@novel.lock(current_user)
   end
   
   # POST /chapters
@@ -65,7 +66,7 @@ class ChaptersController < ApplicationController
     @chapter.save!
     redirect_to chapter_no_path(@novel.perma_link,@chapter.number)
     flash[:success] = "Chapter was created successfully, You can continue adding chapters."
-    @novel.unlock
+    #@novel.unlock
     rescue ActiveRecord::RecordInvalid
       render :action => 'new'
   end    
@@ -79,7 +80,7 @@ class ChaptersController < ApplicationController
     respond_to do |format|
       if @chapter.update_attributes(params[:chapter])
         flash[:notice] = 'Chapter was successfully updated.'
-        @novel.unlock
+        #@novel.unlock
         format.html { redirect_to(novel_chapter_path(@novel.perma_link, @chapter.number)) }
         format.xml  { head :ok }
       else
