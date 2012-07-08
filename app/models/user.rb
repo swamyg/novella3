@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :chapters
   has_one :profile
   has_many :permissions
+  has_many :activities
   has_many :requests
   
   # Virtual attribute for the unencrypted password

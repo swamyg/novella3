@@ -48,7 +48,7 @@ class ChaptersController < ApplicationController
     #end
     @chapter = Chapter.find(params[:id])
     @chapter_count = @novel.chapters.count
-    @chapter.concurrent_editors +=1
+    @chapter.add_concurrent_editor(current_user)
     #@novel.lock(current_user)
   end
   
@@ -80,7 +80,7 @@ class ChaptersController < ApplicationController
     respond_to do |format|
       if @chapter.update_attributes(params[:chapter])
         flash[:notice] = 'Chapter was successfully updated.'
-        #@novel.unlock
+        @chapter.remove_concurrent_editor(current_user)
         format.html { redirect_to(novel_chapter_path(@novel.perma_link, @chapter.number)) }
         format.xml  { head :ok }
       else

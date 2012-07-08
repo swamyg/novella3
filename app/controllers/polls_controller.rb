@@ -1,6 +1,6 @@
 class PollsController < ApplicationController
   def chapter
-    puts "Current_user ---> #{current_user.id}"
-    render :json => {:success => 'true', :visitors => 100}
+    chapter = Chapter.find(params[:id])
+    render :json => {:editors => chapter.concurrent_editors}
   end
 end

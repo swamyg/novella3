@@ -7,9 +7,10 @@
     - @chapter.errors.full_messages.each do |msg|
       %li=msg
 %p
-  .flash.notice{:style=>"width: 300px; text-align: center"}
-    %span.concurrent_editors= @chapter.concurrent_editors
-    users are editing this chapter
+  - show_or_not = @chapter.concurrent_editors > 1 ? '':'none'
+  .flash.notice.edit_notice{:style=>"width: 300px; text-align: center; display:#{show_or_not};"}
+    %span.concurrent_editors= (@chapter.concurrent_editors - 1)
+    other person is currently editing this novel
 %h1 Editing novel
 .rounded.blue
   - form_id = "novella_chapter_form_#{@chapter.id}"

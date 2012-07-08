@@ -10,7 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120514021624) do
+ActiveRecord::Schema.define(:version => 20120708021354) do
+
+  create_table "activites", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "chapter_id"
+    t.string   "activity_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "activities", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "chapter_id"
+    t.string   "activity_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "chapters", :force => true do |t|
     t.string   "title",      :limit => 128
