@@ -21,10 +21,10 @@ class NovelsController < ApplicationController
   def show
     #@novel = Novel.find_by_perma_link(params[:id])
     @chapter_count = @novel.chapters.count
-    if params[:lock] == 'release' && current_user.is_author?(@novel)
-      flash[:success] = "This novel has been unlocked for editing"
-      @novel.unlock
-    end
+    #if params[:lock] == 'release' && current_user.is_author?(@novel)
+    #  flash[:success] = "This novel has been unlocked for editing"
+    #  @novel.unlock
+    #end
     if params[:view_characters]
       @show_characters = true
       @characters = @novel.characters
@@ -42,12 +42,12 @@ class NovelsController < ApplicationController
   # GET /novels/1/edit
   def edit
     #@novel = Novel.find(params[:id])
-    if @novel.locked?(current_user)
-      flash[:notice] = "This novel is currently locked for editing. If you are the author please release lock and try again."
-      return redirect_to :action => :show
-    end
+    #if @novel.locked?(current_user)
+    #  flash[:notice] = "This novel is currently locked for editing. If you are the author please release lock and try again."
+    #  return redirect_to :action => :show
+    #end
     puts "Why are you here?"
-    @novel.lock(current_user)
+    #@novel.lock(current_user)
     @genres = Genre.all
   end
 
@@ -72,7 +72,7 @@ class NovelsController < ApplicationController
        
     if @novel.update_attributes(params[:novel])
       flash[:success] = 'Novel was successfully updated.'
-      @novel.unlock
+      #@novel.unlock
       redirect_to perma_link_path(@novel.perma_link)
     else
       flash[:error] = 'There was a problem, novel was not successfully updated.'

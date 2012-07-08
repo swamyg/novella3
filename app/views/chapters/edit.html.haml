@@ -1,10 +1,15 @@
 - content_for :head do
   =javascript_include_tag "http://mobwrite3.appspot.com/static/compressed_form.js"
+  =javascript_include_tag "poller"
 
 - if @chapter.errors.any?
   %ul{:class=>"flash error"}
     - @chapter.errors.full_messages.each do |msg|
       %li=msg
+%p
+  .flash.notice{:style=>"width: 300px; text-align: center"}
+    %span.concurrent_editors= @chapter.concurrent_editors
+    users are editing this chapter
 %h1 Editing novel
 .rounded.blue
   - form_id = "novella_chapter_form_#{@chapter.id}"
@@ -14,7 +19,7 @@
         %td
           = f.label :title, 'title'
           %br
-          = f.text_field :title, :size => 32
+          = f.text_field :title, :size => 32, :readonly => true
       %tr
         %td
           = f.label :number, 'chapter number'
@@ -34,5 +39,6 @@
 :javascript
   $(function(){
     mobwrite.syncGateway = 'http://mobwrite3.appspot.com/scripts/q.py';
-    mobwrite.share('#{form_id}');
+    mobwrite.share("#{form_id}");
+    Poller.poll("/polls/chapter/#{@chapter.id}")
   })

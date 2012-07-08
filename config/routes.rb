@@ -12,6 +12,9 @@ Novella3::Application.routes.draw do
       post :handle
     end
   end
+  resources :polls do
+    get :chapter
+  end
   match 'novels/:novel_id/chapters/:chapter_no' => "chapters#show", :requirements => {:novel_id => /[0-9]+/, :chapter_no => /[0-9]+/}, :as => :chapter_no
   match 'user/:login' => "profiles#show", :requirements => {:login => /[a-z]+/}, :as => :profile
   resources :user, :requirements => {:id => /[0-9]+/} do
