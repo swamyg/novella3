@@ -1,5 +1,5 @@
 - content_for :head do
-  =javascript_include_tag "http://mobwrite3.appspot.com/static/compressed_form.js"
+  =javascript_include_tag "http://novelcollab.appspot.com/static/compressed_form.js"
   =javascript_include_tag "poller"
 
 - if @chapter.errors.any?
@@ -13,8 +13,8 @@
     other person(s) is currently editing this novel
 %h1 Editing novel
 .rounded.blue
-  - form_id = "novella_chapter_form_#{@chapter.id}"
-  -form_for @chapter, :url=>{:action=>'update'}, :html => { :multipart => true, :id => form_id } do |f|
+  -# form_id = "novella_chapter_form_#{@chapter.id}"
+  -form_for @chapter, :url=>{:action=>'update'}, :html => { :multipart => true, :id => @chapter.current_edit_id } do |f|
     %table{:class=>'form', :cellpadding=>'5', :cellspacing=>'2'}
       %tr
         %td
@@ -29,7 +29,7 @@
       %td
         = f.label :content, 'content'
         %br
-        = f.text_area :content, :cols =>75, :rows=>15
+        = f.text_area :content, :cols =>75, :rows=>15, :id => "txt_#{@chapter.current_edit_id}"
       %tr
         %td
           =f.submit 'Update'
@@ -39,8 +39,8 @@
 
 :javascript
   $(function(){
-    mobwrite.syncGateway = 'http://mobwrite3.appspot.com/scripts/q.py';
-    mobwrite.share("#{form_id}");
+    mobwrite.syncGateway = 'http://novelcollab.appspot.com/scripts/q.py';
+    mobwrite.share("txt_#{@chapter.current_edit_id}");
     Poller.poll("/polls/chapter/#{@chapter.id}")
 
     window.onbeforeunload = function() {

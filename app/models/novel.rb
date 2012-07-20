@@ -57,7 +57,7 @@ class Novel < ActiveRecord::Base
   private
 
   def set_owner
-    self.user.permissions.create!(:novel => novel, :role => 'author')
+    self.user.permissions.create!(:novel => self, :role => 'author')
   end
 
 end

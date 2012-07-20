@@ -46,8 +46,12 @@ class ChaptersController < ApplicationController
     #  flash[:notice] = "This novel is currently locked for editing. If you are the author please release lock and try again."
     #  return redirect_to perma_link_path(@novel.perma_link)
     #end
-    @chapter = Chapter.find(params[:id])
+    #@chapter = Chapter.find(params[:id])
+    @chapter = @novel.chapters.where("number=#{params[:id]}").first
     @chapter_count = @novel.chapters.count
+    puts "CONCURRENT EDITORS ---> #{@chapter.concurrent_editors}"
+    @chapter.update_attribute :current_edit_id, rand(9999999) if @chapter.concurrent_editors == 0
+    puts "CURR EDIT ID ---> #{@chapter.current_edit_id}"
     @chapter.add_concurrent_editor(current_user)
     #@novel.lock(current_user)
   end
@@ -75,12 +79,13 @@ class ChaptersController < ApplicationController
   # PUT /chapters/1
   # PUT /chapters/1.xml
   def update
-    @chapter = Chapter.find(params[:id])
+    @chapter = @novel.chapters.where("number=#{params[:id]}").first
 
     respond_to do |format|
       if @chapter.update_attributes(params[:chapter])
         flash[:notice] = 'Chapter was successfully updated.'
         @chapter.remove_concurrent_editor(current_user)
+        @chapter.update_attribute :current_edit_id, nil if @chapter.concurrent_editors == 0
         format.html { redirect_to(novel_chapter_path(@novel.perma_link, @chapter.number)) }
         format.xml  { head :ok }
       else
@@ -91,7 +96,9 @@ class ChaptersController < ApplicationController
   end
 
   def unload
+    #@chapter = @novel.chapters.where("number=#{params[:id]}").first
     @chapter.remove_concurrent_editor(current_user)
+    @chapter.update_attribute :current_edit_id, nil if @chapter.concurrent_editors == 0
     render :nothing => true
   end
 

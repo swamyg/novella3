@@ -76,7 +76,7 @@ class NovelsController < ApplicationController
       redirect_to perma_link_path(@novel.perma_link)
     else
       flash[:error] = 'There was a problem, novel was not successfully updated.'
-      redirect_to edit_novels_path(@novel)
+      redirect_to edit_novel_path(@novel.perma_link)
       #redirect_to edit_novels_path(@novel)
     end
   end
