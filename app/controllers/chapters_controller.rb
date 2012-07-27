@@ -49,9 +49,9 @@ class ChaptersController < ApplicationController
     #@chapter = Chapter.find(params[:id])
     @chapter = @novel.chapters.where("number=#{params[:id]}").first
     @chapter_count = @novel.chapters.count
-    puts "CONCURRENT EDITORS ---> #{@chapter.concurrent_editors}"
-    @chapter.update_attribute :current_edit_id, rand(9999999) if @chapter.concurrent_editors == 0
-    puts "CURR EDIT ID ---> #{@chapter.current_edit_id}"
+    @chapter.skip_version do
+      @chapter.update_attribute :current_edit_id, rand(9999999) if @chapter.concurrent_editors == 0
+    end
     @chapter.add_concurrent_editor(current_user)
     #@novel.lock(current_user)
   end
@@ -68,8 +68,8 @@ class ChaptersController < ApplicationController
     @chapter.user_id = current_user.id
     @chapter.novel_id = @novel.id
     @chapter.save!
-    redirect_to chapter_no_path(@novel.perma_link,@chapter.number)
     flash[:success] = "Chapter was created successfully, You can continue adding chapters."
+    redirect_to chapter_no_path(@novel.perma_link,@chapter.number)
     #@novel.unlock
     rescue ActiveRecord::RecordInvalid
       render :action => 'new'
@@ -82,10 +82,13 @@ class ChaptersController < ApplicationController
     @chapter = @novel.chapters.where("number=#{params[:id]}").first
 
     respond_to do |format|
+      params[:chapter][:updated_by] = current_user
       if @chapter.update_attributes(params[:chapter])
         flash[:notice] = 'Chapter was successfully updated.'
         @chapter.remove_concurrent_editor(current_user)
-        @chapter.update_attribute :current_edit_id, nil if @chapter.concurrent_editors == 0
+        @chapter.skip_version do
+          @chapter.update_attribute :current_edit_id, nil if @chapter.concurrent_editors == 0
+        end
         format.html { redirect_to(novel_chapter_path(@novel.perma_link, @chapter.number)) }
         format.xml  { head :ok }
       else
@@ -98,7 +101,9 @@ class ChaptersController < ApplicationController
   def unload
     #@chapter = @novel.chapters.where("number=#{params[:id]}").first
     @chapter.remove_concurrent_editor(current_user)
-    @chapter.update_attribute :current_edit_id, nil if @chapter.concurrent_editors == 0
+    @chapter.skip_version do
+      @chapter.update_attribute :current_edit_id, nil if @chapter.concurrent_editors == 0
+    end
     render :nothing => true
   end
 
@@ -111,6 +116,16 @@ class ChaptersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(chapters_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  def changes
+    @chapter = @novel.chapters.where("number=#{params[:id]}").first
+    @chapter_count = @novel.chapters.count
+    if params[:revert_to]
+      @chapter.revert_to!(params[:revert_to].to_i)
+      flash[:success] = "Chapter successfully reverted to version #{params[:revert_to]}"
+      redirect_to chapter_no_path(@novel.perma_link,@chapter.number)
     end
   end
 

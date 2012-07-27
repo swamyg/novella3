@@ -3,7 +3,11 @@ Novella3::Application.routes.draw do
   root :to => "genre#show", :all=>'true'
   ##singular resource with mapping
   resources :novels, :requirements => {:id => /[0-9]+/} do
-    resources :chapters
+    resources :chapters do
+      member do
+        get :changes
+      end
+    end
     resources :requests
     resources :characters
   end

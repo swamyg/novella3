@@ -1,0 +1,41 @@
+%div{:class=>"yui-u first"}
+  =render :partial => 'novels/novel_chapter_left.html.haml'
+%div{:class=>"yui-u"}
+  .right
+    = link_to "view chapter", novel_chapter_path(@novel.perma_link, @chapter.number), :class => 'normal'
+  .heading.large
+    %a{:href=>perma_link_path(@novel.perma_link),:class=>'none'}
+      =h @novel.name
+  .break
+  .big.text-gray
+    %a{:href=>novel_chapter_path(@novel.perma_link, @chapter.number), :class=>'none'}
+      =h @chapter.number.to_s + ".  " +@chapter.title
+  .break
+  .medium
+    = "<i>Showing changes in chapter #{@chapter.number}</i>".html_safe
+    .right
+      %span.del removed
+      %span.ins added
+
+  .break
+  .medium.text-gray
+    - confirm_text = "Are you sure you want to revert to this version?"
+    - @chapter.versions.reverse.each do |v|
+      .diff_set
+        - if v.reverted_from
+          = "<b>reverted by you</b>\n".html_safe
+          = "<i>[version number: #{v.number} -- reverted from: #{v.reverted_from}]</i>".html_safe
+        - else
+          - user_login = v.user.id == current_user.id ? "you" : profile_link(v.user)
+          = "<b>edited by #{user_login}</b>\n".html_safe
+          = "<i>[version number: #{v.number}]</i>".html_safe
+        .right
+          = time_ago_in_words(v.created_at) + " ago"
+        .break
+        - changes = v.changes["content"]
+        = Diffy::Diff.new(@chapter.content, changes.last).to_s(:html_simple).html_safe
+        .right
+          - if @chapter.version == v.number
+            =link_to "revert to previous version", changes_novel_chapter_path(@novel.perma_link, @chapter.number, :revert_to => "#{v.number - 1}"), :class => 'normal', :onclick => "return confirm('#{confirm_text}')"
+          -else
+            =link_to "revert to this version", changes_novel_chapter_path(@novel.perma_link, @chapter.number, :revert_to => "#{v.number}"), :class => 'normal', :onclick => "return confirm('#{confirm_text}')"

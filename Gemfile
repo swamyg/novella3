@@ -11,6 +11,9 @@ gem 'paperclip'
 gem 'will_paginate'
 gem 'haml'
 gem 'cancan'
+gem 'vestal_versions', :git => 'git://github.com/adamcooper/vestal_versions'
+gem 'diffy'
+gem 'awesome_print'
 
 # Use unicorn as the web server
 # gem 'unicorn'

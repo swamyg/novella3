@@ -39,7 +39,6 @@ class AccountsController < ApplicationController
     @profile.save!
     self.current_user = @user
     session[:user] = self.current_user
-    puts " YAYAYAY * ****************yo********************************************* "
     redirect_back_or_default(:controller => '/accounts', :action => 'login')
     flash[:success] = "Account created successfully, please login"
   rescue ActiveRecord::RecordInvalid

@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/adamcooper/vestal_versions
+  revision: 6273df533f85014062e346cb1807b0531a809ee2
+  specs:
+    vestal_versions (1.2.2)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -29,9 +37,11 @@ GEM
       activesupport (= 3.0.11)
     activesupport (3.0.11)
     arel (2.0.10)
+    awesome_print (1.0.2)
     builder (2.1.2)
     cancan (1.6.7)
     cocaine (0.2.1)
+    diffy (2.0.8)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     haml (3.1.4)
@@ -84,10 +94,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   cancan
+  diffy
   haml
   mysql2 (~> 0.2.7)
   paperclip
   populator
   rails (= 3.0.11)
+  vestal_versions!
   will_paginate

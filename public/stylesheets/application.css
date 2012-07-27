@@ -199,10 +199,24 @@ div.grey {
 
 
 /* others */
-.break {clear:both;margin:1em 0em;}
+.break {clear:both;margin:2em 0em;}
+.bigbreak {clear:both;margin:2em 0em;}
 .half-size{width:50%;}
 .inner{margin:0.75em 1.5em;}
 .message_box{padding: 0.35em;width:21em;}
 .actions{margin-left:0.0em;padding:0.25em;}
 .actions span{margin-left:0.45em;}
+.ins{
+  background-color: #DDFFDD;
+  padding: 5px;
+}
+.del{
+  background-color: #FFDDDD;
+  padding: 5px;
+}
+.diff_set {
+  border: 2px solid #EEE;
+  padding: 10px;
+  margin-bottom: 25px;
+}
 

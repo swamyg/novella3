@@ -1,4 +1,5 @@
 class Chapter < ActiveRecord::Base
+  versioned
   belongs_to :novel
   belongs_to :user
   has_many :activities

@@ -46,7 +46,6 @@ class NovelsController < ApplicationController
     #  flash[:notice] = "This novel is currently locked for editing. If you are the author please release lock and try again."
     #  return redirect_to :action => :show
     #end
-    puts "Why are you here?"
     #@novel.lock(current_user)
     @genres = Genre.all
   end
