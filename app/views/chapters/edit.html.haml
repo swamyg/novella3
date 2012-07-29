@@ -30,9 +30,9 @@
         %td
           = f.label :content, 'content'
           %br
-          = f.text_area :content, :cols =>75, :rows=>15, :id => "txt_#{@chapter.current_edit_id}"
+          = f.text_area :content, :cols =>75, :rows=>15
         %td{:style => "padding: 15px; vertical-align: top"}
-          To link characters, enclose their name in two square brackets like this: [[CHARACTER_NAME]]
+          = render :partial => "characters/character_insert", :locals => { :characters => @chapter.novel.characters }
       %tr
         %td
           =f.submit 'Update'

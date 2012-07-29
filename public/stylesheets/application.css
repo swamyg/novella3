@@ -219,4 +219,7 @@ div.grey {
   padding: 10px;
   margin-bottom: 25px;
 }
+.character_list li {
+  padding: 3px;
+}
 
