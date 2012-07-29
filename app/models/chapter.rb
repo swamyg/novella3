@@ -20,4 +20,5 @@ class Chapter < ActiveRecord::Base
   def concurrent_editors
     self.activities.where("activity_type = 'editing'").size
   end
+
 end

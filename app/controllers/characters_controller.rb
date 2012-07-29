@@ -2,10 +2,11 @@ class CharactersController < ApplicationController
   # GET /chapters
   # GET /chapters.xml
   before_filter :login_required, :except=>[:show,:index]
-  before_filter :set_novel, :except => [:index]
+  before_filter :set_novel
+  before_filter :set_character, :except => [:index]
   load_and_authorize_resource
   def index
-    @characters = Novel.characters
+    @characters = @novel.characters
   end
 
   # GET /chapters/1
@@ -41,9 +42,10 @@ class CharactersController < ApplicationController
     @character.user_id = current_user.id
     @character.novel_id = @novel.id
     @character.save!
-    redirect_to novel_path(@novel.perma_link)
+    redirect_to novel_characters_path(@novel.perma_link)
     flash[:success] = "Character was created successfully."
-    rescue ActiveRecord::RecordInvalid
+  rescue ActiveRecord::RecordInvalid
+    flash[:success] = "There was a problem creating your character, please try again."
       render :action => 'new'
   end
 
@@ -83,6 +85,9 @@ class CharactersController < ApplicationController
 
   def set_novel
     @novel = Novel.find_by_perma_link(params[:novel_id])
-    @character = @novel.characters.build
+  end
+
+  def set_character
+    @character = params[:id] ? @novel.characters.find_by_id(params[:id]) : @novel.characters.build
   end
 end

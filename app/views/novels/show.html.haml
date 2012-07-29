@@ -7,14 +7,11 @@
       %br
       %br
 
-  - if @show_characters
-    = render :partial => 'characters/index'
-  - else
-    -if @chapter_count > 0
-      .break
-      .big Chapters
-      .break
-      .move-left
-        -@chapters.each_with_index do |chapter,idx|
-          .medium
-            =link_to chapter.number.to_s+". "+chapter.title, chapter_no_path(@novel.perma_link,chapter.number), :class=>'normal tall'
+  -if @chapter_count > 0
+    .break
+    .big Chapters
+    .break
+    .move-left
+      -@chapters.each_with_index do |chapter,idx|
+        .medium
+          =link_to chapter.number.to_s+". "+chapter.title, chapter_no_path(@novel.perma_link,chapter.number), :class=>'normal tall'

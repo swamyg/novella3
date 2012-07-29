@@ -13,7 +13,8 @@
       =h @chapter.number.to_s + ".  " +@chapter.title
   .break
   .medium.text-gray
-    = @chapter.content.html_safe
+    - content = parse_for_characters(@chapter.content, @chapter.novel)
+    = content.html_safe
   .break
   -if @chapter.number > 1
     .light-gray.left

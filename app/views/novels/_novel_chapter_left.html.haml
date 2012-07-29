@@ -13,7 +13,7 @@
 
     %tr
       %td= link_to "Add Character", new_novel_character_path(@novel.perma_link), :class=>'normal'
-      %td= link_to "View Characters", "/novels/#{@novel.perma_link}?view_characters=true", :class=>'normal'
+      %td= link_to "View Characters", novel_characters_path(@novel.perma_link), :class=>'normal'
 
     - if current_user !=:false
       %tr

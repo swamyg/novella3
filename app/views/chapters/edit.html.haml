@@ -26,10 +26,13 @@
           = f.label :number, 'chapter number'
           %br
           = f.text_field :number, :readonly => true
-      %td
-        = f.label :content, 'content'
-        %br
-        = f.text_area :content, :cols =>75, :rows=>15, :id => "txt_#{@chapter.current_edit_id}"
+      %tr
+        %td
+          = f.label :content, 'content'
+          %br
+          = f.text_area :content, :cols =>75, :rows=>15, :id => "txt_#{@chapter.current_edit_id}"
+        %td{:style => "padding: 15px; vertical-align: top"}
+          To link characters, enclose their name in two square brackets like this: [[CHARACTER_NAME]]
       %tr
         %td
           =f.submit 'Update'
