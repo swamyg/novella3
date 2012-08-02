@@ -43,7 +43,7 @@
 :javascript
   $(function(){
     mobwrite.syncGateway = 'http://novelcollab.appspot.com/scripts/q.py';
-    mobwrite.share("txt_#{@chapter.current_edit_id}");
+    mobwrite.share("#{@chapter.current_edit_id}");
     Poller.poll("/polls/chapter/#{@chapter.id}")
 
     window.onbeforeunload = function() {
