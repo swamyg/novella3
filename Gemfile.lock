@@ -61,7 +61,7 @@ GEM
       mime-types
     polyglot (0.3.3)
     populator (1.0.0)
-    rack (1.2.5)
+    rack (1.2.8)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
     rack-test (0.5.7)
